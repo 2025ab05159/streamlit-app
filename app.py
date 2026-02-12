@@ -115,7 +115,10 @@ PRECOMPUTED_METRICS = {
 def load_model(model_name):
     """Load the selected model from disk"""
     try:
-        model_path = MODEL_INFO[model_name]['file']
+        # Get the directory where app.py is located
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        model_path = os.path.join(base_dir, MODEL_INFO[model_name]['file'])
+        
         if os.path.exists(model_path):
             return joblib.load(model_path)
         else:
@@ -130,8 +133,10 @@ def load_model(model_name):
 def load_scaler():
     """Load the feature scaler"""
     try:
-        if os.path.exists('model/scaler.pkl'):
-            return joblib.load('model/scaler.pkl')
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        scaler_path = os.path.join(base_dir, 'model/scaler.pkl')
+        if os.path.exists(scaler_path):
+            return joblib.load(scaler_path)
         return None
     except:
         return None
@@ -141,8 +146,10 @@ def load_scaler():
 def load_feature_names():
     """Load feature names"""
     try:
-        if os.path.exists('model/feature_names.pkl'):
-            return joblib.load('model/feature_names.pkl')
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        feature_path = os.path.join(base_dir, 'model/feature_names.pkl')
+        if os.path.exists(feature_path):
+            return joblib.load(feature_path)
         return None
     except:
         return None
